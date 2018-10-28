@@ -1,6 +1,5 @@
-# panda-suite.github.io
 
-# panda-cash
+# PandaCash
 PandaCash has been created at the Bitcoin Cash DevCon Hackathon in Amsterdam.
 
 ## Why
