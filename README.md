@@ -26,7 +26,7 @@ const panda = require("pandacash-cli");
 
 const server = panda.server({
     // optional, will be generated if not provider
-    mnemonic: "cigar magnet ocean purchase travel damp snack alone theme budget wagon wrong"
+    mnemonic: "cigar magnet ocean purchase travel damp snack alone theme budget wagon wrong",
     // default: 10
     totalAccounts: 10,
     // will seed generated accounts with premined coins, default: false
@@ -106,11 +106,28 @@ Starting BITBOX API at port 3000
     Base HD Path:  m/44'/145'/0'/0/{account_index}
 
     Bitcoin Cash Listening on http://localhost:48332
-    BITBOX API running at http://localhost:3000/v1/
-    BITBOX API Docs running at http://localhost:3000/
 ```
 
-The `pandacash-cli` blockchain can be reached through JSON-RPC on `http://localhost:48332` and through a REST API on `http://localhost:3000/`. Most importantly, it can be used inside BITBOX applications, by defining a new `local` bitbox environment:
+**In Jasmine/Mocha tests**
+```bash
+const panda = require("pandacash-cli")
+
+beforeAll(done => {
+  const server = panda.server({
+    seedAccounts: false,
+    enableLogs: false,
+    debug: false
+  })
+
+  server.listen(48332, (err, pandaCashCore) => {
+    if (err) done(err);
+
+    done()
+  })
+});
+```
+
+The `pandacash-cli` blockchain can be reached through JSON-RPC on `http://localhost:48332`.
 
 ## Under the hood
 PandaCash consists of the following components:
@@ -118,8 +135,6 @@ PandaCash consists of the following components:
   * Doesn't sync with other Bitcoin nodes, and immediately creates new blocks on every transaction.
 * Prefunded addresses
   * 10 addresses with 62.5 spendable BCH each, generated from a random mnemonic.
-* rest.bitcoin.com REST API
-  * A local version of the rest.bitcoin.com code that connects to the `pandacash-cli` blockchain.
 
 # Licence
 Copyright 2018 Panda Suite
