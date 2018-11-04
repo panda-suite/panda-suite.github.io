@@ -1,20 +1,18 @@
 # pandacash-cli
 Panda Suite is a suite of tools to make BCH development more accessible to every developer.
 
-When developing applications for Bitcoin Cash, it is important that its functionality is well-tested, as the app can potentially be dealing with large amounts of money. For testing purposes, there is a public Bitcoin Cash testnet, but this testnet can not be used without an internet connection, and obtaining larger amounts of tBCH can be cumbersome. Finally, in earlier stages of development, many developers would rather not be using a public network already, and would rather develop locally until development has furthered.
+When developing applications for Bitcoin Cash, it is important that its functionality is well-tested, as the app can potentially be dealing with large amounts of money. For testing purposes, there is a public Bitcoin Cash testnet, but this testnet can not be used without an internet connection, and obtaining larger amounts of BCH can be cumbersome. Finally, in earlier stages of development, many developers would rather not be using a public network already, and would rather develop locally until development has furthered.
 
 This is where `pandacash-cli` comes in. `pandacash-cli` is a one-click Bitcoin Cash blockchain with pre-funded BCH addresses, enabling developers to quickly start working with BCH without any hassle. `pandacash-cli` is similar to [`ganache-cli`](https://github.com/trufflesuite/ganache-cli), but for Bitcoin Cash.
 
 ## Prerequisites
-To run `pandacash-cli`, make sure that [Node.js](https://nodejs.org/) and [Docker](https://www.docker.com/) are installed.
+To run `pandacash-cli`, make sure that [Node.js](https://nodejs.org/) is installed.
 On macOS these tools can be installed through [Homebrew](https://brew.sh/).
 ```bash
 brew install node
-brew cask install docker
 ```
 
 ## Installation
-Make sure that Docker is running before installing `pandacash-cli`. `pandacash-cli` can then be installed through `npm`.
 ```bash
 npm install --global pandacash-cli
 ```
@@ -22,9 +20,44 @@ npm install --global pandacash-cli
 ## Usage
 After installing `pandacash-cli`, it can be used as a command-line tool to quickly spin up a local development BCH blockchain with a single command. The local blockchain comes with ten pre-funded BCH addresses, which can be used in the local development process. `pandacash-cli` will also spin up a REST API to interface with the local blockchain that is fully compatible with [BITBOX](https://developer.bitcoin.com/bitbox/).
 
-```bash
-pandacash-cli
+**As a general HTTP server**
+```js
+const panda = require("pandacash-cli");
+
+const server = panda.server({
+    // optional, will be generated if not provider
+    mnemonic: "cigar magnet ocean purchase travel damp snack alone theme budget wagon wrong"
+    // default: 10
+    totalAccounts: 10,
+    // will seed generated accounts with premined coins, default: false
+    seedAccounts: true,
+    // will log in the console
+    enableLogs: true,
+    // will show logs from the bch node
+    debug: false
+});
+
+server.listen(48322, (err, pandaCashCore) => {
+    if (err) {
+        return console.error(err);
+    }
+
+    console.log("Mnemonic: " + pandaCashCore.opts.mnemonic);
+    console.log("Account[0] public key: " + pandaCashCore.accounts[0].address);
+    console.log("Account[0] private key: " + pandaCashCore.accounts[0].privateKeyWIF);
+});
 ```
+
+**Command Line**
+```bash
+$ pandacash-cli <options>
+```
+
+
+Options:
+* `-a` or `--accounts`: Specify the number of accounts to generate at startup.
+* `-m` or `--mnemonic`: bip39 mnemonic phrase for generating a PRNG seed, which is in turn used for hierarchical deterministic (HD) account generation.
+* `--debug`: Show debug output from the bitcoin node.
 
 ```bash
   ____                        _            ____                 _
@@ -34,79 +67,54 @@ pandacash-cli
  |_|      \__,_| |_| |_|  \__,_|  \__,_|  \____|  \__,_| |___/ |_| |_|
 
 Restarting Bitcoin Cash Client
-Bitcoin Cash Client restarted and listens at port 18332
+Bitcoin Cash Client restarted and listens at port 48332
 Seeding accounts
 Advancing blockchain to enable spending
 Starting BITBOX API at port 3000
 
-    PandaCash CLI v0.0.1
+    PandaCash CLI v0.2.0
 
     Available Accounts
     ==================
-    (0) bchreg:qr9mp5wlj0qey2es35j99kg0qn4lwj9jsqvwacyyfs
-    (1) bchreg:qq7e82yqmlwf94u085vc402ecv26rvl09srlpjkf09
-    (2) bchreg:qqpgxm3j008hlxqtjdxtxrpylvvasg7dpql2xrwhqz
-    (3) bchreg:qrkw3ytggq4g5ng3v0n9efrnw9q9zvdrjy5xwjnncs
-    (4) bchreg:qp9jzuvszclraqq7jh485pf3p2dn5cyw3gmpdnehzc
-    (5) bchreg:qrkgyqf04a8x55a9juwm9k6evdysmzq2zgjcl4y93e
-    (6) bchreg:qz540yauansl6lu32j0uhrlzzvyk4s2nlufw5jcrqz
-    (7) bchreg:qpy7us0e6chgej3lhwrpr6rlvtlym5hrh5rsp63g68
-    (8) bchreg:qpejwem46w6m4ah9lkr0v5gdaqy277dxdc7rgg4wl0
-    (9) bchreg:qzeekdn8jwn48kaufzru4zhwuphme79695ln2kpmpy
+    (0) bchreg:qpk8s58gaal6gwhvyulxszzecws539g27c50v0nk6t
+    (1) bchreg:qqm2nlulp8ulnnhxqpmmtkvvwmkr8usrhggh3z5uwl
+    (2) bchreg:qrl5aqss5e7av0606zl5ajnj2xurkf280gwyqff9v6
+    (3) bchreg:qqahjdfalxw9j2t57ajs5jctl9ayzp5yk553yvxwv3
+    (4) bchreg:qp3qhranmxzpr42rn0sl3rqmvdhrcty9l5nugh9ysp
+    (5) bchreg:qraulxcveneskyfayw78fyaxhvr6t8w3ssp7zclse8
+    (6) bchreg:qqahhkf755uz3dz8g48d3dzgvee0p4c79ynffxevqh
+    (7) bchreg:qr7tgfwz2gzcy424v7g34enhugs02e7qkukh96cfc7
+    (8) bchreg:qps5zg80jh4lden2crvzr5uzra8tesfs2vjp4l6z0t
+    (9) bchreg:qqc0pw9q5c7ssx6wxpug63w3y6vlw0zamqjjp3p5mr
 
     Private Keys
     ==================
-    (0) cV59RxmDATEV3x66grEWGbWgvGHYCQoCu9uDwtF4uyQtxTm52Ptb
-    (1) cSnTygYBZdbH2fNzoPzk9kARJNc6zaAsUyvpWfUbztFmYctaAw4E
-    (2) cVEiVmNNs8W2nTqHkcM1Ghpga4SQijw3W86eEerBp5Ynxe8zWq8d
-    (3) cN35RxP1bhyuoSnMF6DZSa6ZiVddZ6Rm5MFVQUSt1qTDua35jVR6
-    (4) cV6ughqaPwG1DqqW8oWk7PC3PA9SUGCXfxxSyPe58pQivchVHR9i
-    (5) cQ4cBokvYvSL8TWLiWGZESS2YVQDxXXpoqh3QAUizU2sBfJnsHiJ
-    (6) cPbDNta1FNgvfKR44hS37aEQai6oS31LVDD6kpFZoGkuri64ULya
-    (7) cR38r4hUmgfuyTEqkiWtaxwUWZyc6LA8M6JAb9pmjereWUhBwGJp
-    (8) cW1HaJ2b5FrFA5ya5sHMciUC9WaQJQsZu5n5odWsSKJToXoGhMqr
-    (9) cQb4ycXBeecZga3cvq18KEUxwxH1qARhQQ38KJvyX8QxLgEj5Bqe
+    (0) cVABvrFC8MXZJHSCyULa99MXDsQdLeQwKHxjGXughgd6pXNtd558
+    (1) cPZ2RbJK6UYVjeMwpgtd8EvnzjfdZraegcsddz6jPmajE4Qe848d
+    (2) cSDUAHNne1ssgFsavbjp8mLBy7CEtqgYM874konLWiy4BVbf85PM
+    (3) cT3ApxBWsoX62jUZiJcpzsXQHbXB4sTgdH8PF2qDTdHSgaLurcJJ
+    (4) cV9tvwoc9iDpK2kWLLzxEdRFe68LNMTrZQ7xLiyhCuZGX8pQfpGH
+    (5) cMmQyLbXeX9jcucMwr4GFQKwWr7knCPqnS6GU7b7HD1D6R8xR755
+    (6) cQ2ULCzf2FwcUsV1rioHrEVUR1p4zUmjcpEVFHmBTdM6CJP7Si2H
+    (7) cNYwTL8nFm9ckqwRMDuRuTUd1NraSkTs2Np87TuBCCnvNn3enVy6
+    (8) cVY8RP3UXBrZksGPNhAR72qpGHkYmmLVu6ycgizSEAYWrhHvbhia
+    (9) cUHqwE6oXE5dDQrn8bXwkYmm71vViwzjGseGeSPCyUjThEXZHpXG
 
     HD Wallet
     ==================
-    Mnemonic:      unveil stadium curtain now network cabbage fun silly spider neither machine power
+    Mnemonic:      candy maple cake sugar pudding cream honey rich smooth crumble sweet treat
     Base HD Path:  m/44'/145'/0'/0/{account_index}
 
-    Bitcoin Cash Listening on http://localhost:18332
+    Bitcoin Cash Listening on http://localhost:48332
     BITBOX API running at http://localhost:3000/v1/
     BITBOX API Docs running at http://localhost:3000/
 ```
 
-The `pandacash-cli` blockchain can be reached through JSON-RPC on `http://localhost:18332` and through a REST API on `http://localhost:3000/`. Most importantly, it can be used inside BITBOX applications, by defining a new `local` bitbox environment:
-
-**bitbox.js**
-```javascript
-exports.config = {
-  networks: {
-    development: {
-      restURL: "https://trest.bitcoin.com/v1/"
-    },
-    production: {
-      restURL: "https://rest.bitcoin.com/v1/"
-    },
-    local: {
-      restURL: "http://localhost:3000/v1/"
-    }
-  }
-};
-```
-
-## Advanced Usage
-### Debugging the `pandacash-cli` blockchain
-You can enter the running Docker container, and use regular `bitcoin-cli` commands.
-```bash
-docker exec -it pandacash /bin/bash
-bitcoin-cli -regtest -rpcuser=regtest -rpcpassword=regtest help
-```
+The `pandacash-cli` blockchain can be reached through JSON-RPC on `http://localhost:48332` and through a REST API on `http://localhost:3000/`. Most importantly, it can be used inside BITBOX applications, by defining a new `local` bitbox environment:
 
 ## Under the hood
 PandaCash consists of the following components:
-* Bitcoin-ABC in regtest mode
+* bcash implementation of bitcoin cash node in regtest mode
   * Doesn't sync with other Bitcoin nodes, and immediately creates new blocks on every transaction.
 * Prefunded addresses
   * 10 addresses with 62.5 spendable BCH each, generated from a random mnemonic.
