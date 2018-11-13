@@ -12,13 +12,13 @@ Panda Suite has been started during the BCH DEVCON in Amsterdam 18'. It started 
 3. Make application testing more consistent and applications more secure 
 
 ## Features
-• Fast: Instant blockchain start (no need to sync up 150GB) 
-• Responsive: No mining needed (new blocks are created with new transactions) 
-• Timesaving: Multiple addresses pre-filled with spendable coins 
-• Clean start: Throw away and restart blockchain 
-• For web developers: Completly writen in Javascript with the most modern standards 
-• Needed: BCH apps need to be developed and tested locally 
-• Open: Fully open-sourced with MIT licence and documented 
+• Fast: Instant blockchain start (no need to sync up 150GB)  
+• Responsive: No mining needed (new blocks are created with new transactions)  
+• Timesaving: Multiple addresses pre-filled with spendable coins  
+• Clean start: Throw away and restart blockchain  
+• For web developers: Completly writen in Javascript with the most modern standards  
+• Needed: BCH apps need to be developed and tested locally  
+• Open: Fully open-sourced with MIT licence and documented  
 
 ## Panda power: Usablity
 PandaCash is easily installed as a CLI and can immediately be used with BCH applications
