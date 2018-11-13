@@ -1,5 +1,5 @@
 # Panda Suite
-For developers building on top of Bitcoin Cash, Pandacash speeds up a development workflow and enables to work locally. It does it by providing a set of tools that can used to start one-click blockchain, run tests, execute commands, and inspect transactions while controlling how the chain operates.
+For developers building on top of Bitcoin Cash, Pandacash speeds up a development workflow and enables to work locally. It does it by providing a set of tools that can used to start one-click test blockchain, run tests, execute commands, and inspect transactions while controlling how the chain operates.
 
 Join us on Telegram: [https://t.me/panda_suite](https://t.me/panda_suite).
 
@@ -16,7 +16,7 @@ Panda Suite has been started during the BCH DEVCON in Amsterdam 18'. It started 
 • Responsive: No mining needed (new blocks are created with new transactions)  
 • Timesaving: Multiple addresses pre-filled with spendable coins  
 • Clean start: Throw away and restart blockchain  
-• For web developers: Completly writen in Javascript with the most modern standards  
+• For web developers: Completly written in Javascript with the most modern standards  
 • Needed: BCH apps need to be developed and tested locally  
 • Open: Fully open-sourced with MIT licence and documented  
 
