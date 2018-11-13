@@ -20,7 +20,7 @@ Panda Suite has been started during the BCH DEVCON in Amsterdam 18'. It started 
 • Needed: BCH apps need to be developed and tested locally  
 • Open: Fully open-sourced with MIT licence and documented  
 
-## Panda power: Usablity
+## Panda power: Usability
 PandaCash is easily installed as a CLI and can immediately be used with BCH applications
 ```javascript
 npm install -g pandacash-cli
