@@ -58,7 +58,7 @@ Pandacash Sandbox is a browser-based development tool for BCH applications. Sanb
 ## Under the hood
 Pandacash is powered by the bcash implementation of Bitcoin Cash.
 
-![bcash / bcoin blockchain](https://raw.githubusercontent.com/panda-suite/panda-suite.github.io/master/bcoin-logo-gradient-text.png =250x)
+<img src="https://raw.githubusercontent.com/panda-suite/panda-suite.github.io/master/bcoin-logo-gradient-text.png" alt="bcash / bcoin blockchain" width="200"/>
 
 # Licence
 Copyright 2018 Panda Suite
